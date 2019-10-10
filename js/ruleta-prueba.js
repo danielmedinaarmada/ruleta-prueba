@@ -4,7 +4,6 @@ let theWheel = new Winwheel({
   'textOrientation': 'vertical',
   'textFontFamily' : 'Verdana', 
   'textFontSize' : 20,
-  'drawMode':'image',
   'segments': [
     {'fillStyle' : '#eae56f', 'text': 'Segment 1'},
     {'fillStyle' : '#89f26e', 'text': 'Segment 2'},
@@ -36,7 +35,7 @@ function addSegment(){
   theWheel.addSegment({
     'text' : date.getMinutes() + ':' + date.getSeconds(),
     'fillStyle': 'agua'
-  },1);
+  });
 
   // The draw method of the wheel object must be called in order for the changes
   // to be rendered.

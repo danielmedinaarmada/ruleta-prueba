@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="js/Winwheel.min.js"></script>
+</head>
+<body>
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='canvas1' width="500" height="300"></canvas>
+  </div>
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='canvas2' width="500" height="300"></canvas>
+  </div>
+
+  <div style='border: 1px solid black; display: inline-block;background-image: url(img/wheel_background.png); background-repeat: no-repeat; background-position: center; width: 400; height: 400 '>
+    <canvas id='canvasContainer' width="400" height="400"></canvas>
+  </div>
+
+  <div id='canvasContainer2' style='border: 1px solid black; display: inline-block;'>
+      <canvas id='canvas3' width='500' height='400' style='z-index: 1;'>
+        Canvas no supported, please user another browser
+      </canvas>
+      <img id='prizePointer' src="img/basic_pointer.png" alt="puntero" style='position: absolute;left: 641px; top: 370px; z-index: 999;'>
+
+    </canvas>
+  </div>
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='trianglePointer' width="410" height="350">
+      Canvas no supported, please user another browser
+    </canvas>
+  </div>
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='arrowPointer' width="410" height="350">
+      Canvas no supported, please user another browser
+    </canvas>
+  </div>
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='handWheel' width="400" height="400">
+      Canvas no supported, please user another browser
+    </canvas>
+  </div>
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='adjustedWheel' width="400" height="400">
+      Canvas no supported, please user another browser
+    </canvas>
+  </div>
+
+<div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='adjustedWheel2' width="400" height="400">
+      Canvas no supported, please user another browser
+    </canvas>
+  </div>
+
+
+
+  <script>
+
+  // Create thie first wheel, all segments the same size
+  let firstWheel = new Winwheel({
+    'canvasId':'canvas1',
+    'drawText': true, // set this to true for text to be rendered for image wheels
+    'textOrientation' : 'curved', // set text properties
+    'textAlignment' : 'outer',
+    'textMargin' : 5,
+    'textFamily' : 'courier',
+    'drawMode': 'image',   // drawMode must be sent to image
+    'numSegments' : 4,      // The number of segments must be scpecified
+    'imageOverlay' : true,  // Set imageOverlay to true to display the overlay
+    'lineWidth' : 4,        // Overlay uses wheel line width and stroke style si can set these
+    'strokeStyle' : 'red',   // as desired to change appearance of the overlay
+    'segments': [
+      { 'text': 'Television'},
+      { 'text': 'Mobile Phone'},
+      { 'text': 'Old Radio'},
+      { 'text': 'Computer'}
+    ]
+  });
+
+  //create new image object in memory
+
+  let firstImg = new Image();
+
+  // create call back  to execute once the image has finished loading
+  firstImg.onload = function(){
+    firstWheel.wheelImage = firstImg;  // Make wheelImage equal the loaded image object
+    firstWheel.draw();                   // Algo call draw function to render the wheel
+  };
+
+  // set the image source, once complete this will trigger tho onLoad callback (above)
+  firstImg.src = 'img/some_imagen.png'
+
+  // ------------------------------------------
+  // Create second wheel where somo of segments are different sizes to the others
+
+
+  let secondWheel = new Winwheel({
+    'canvasId':'canvas2',
+    'drawMode' : 'image',     // drawMode must be set to image
+    'numSegments' : 7,        // The number of segments must be specified
+    'imageOverlay' : true,    // set iamgeOvarlay to true to display the overlay
+    //'lineWidth' : 4,
+    //'strokeStyle' : 'blue',
+    'segments' :              // Pass in sgment parameters (text is optional, not displayed) 
+    [           
+      { 'text' : '1' },
+      { 'text' : '2', 'size' : 30 }, //30 degrees size
+      { 'text' : '3' },
+      { 'text' : '4', 'size' : 15 }, // 15 degrees size
+      { 'text' : '5' },
+      { 'text' : '6', 'size' : 30 }, //30 degrees size
+      { 'text' : '7' }
+    ]
+  });
+
+  //create new image object in memory
+  let secondImg = new Image();
+
+  // create callback to execute once the image has finished loading
+  secondImg.onload = function () {
+    secondWheel.wheelImage = secondImg;    // Make wheelImage equal the loaded image object
+    secondWheel.draw();                     // Also call draw function to render thewheel
+  }
+
+  // set the image source, once complete this will trigger the onload callback (above)
+  secondImg.src = "img/some_imagen2.png"
+
+
+  // ------------------------------------------
+  // Create three wheel where somo of segments are different sizes to the others
+  let wheelWithBackground = new Winwheel({
+    'canvasId': 'canvasContainer',
+    'outerRadius' : 150,      // Use these three properties to
+    'centerX' : 200,          // correctly position the wheel
+    'centerY' : 202.5,          // over the background
+    'lineWidth' : 2,
+    'numSegments': 4,
+    'segments' : [
+      { 'fillStyle' : '#eae56f', 'text' : 'Prize One' },
+      { 'fillStyle' : '#89f26e', 'text' : 'Prize Two' },
+      { 'fillStyle' : '#7de6ef', 'text' : 'Prize Three' },
+      { 'fillStyle' : '#e7706f', 'text' : 'Prize Four' }
+    ]
+  })
+
+
+  // ------------------------------------------
+  // Create three wheel where somo of segments are different sizes to the others
+  // con la imagen Win
+
+  let theWheel = new Winwheel({
+    'canvasId' : 'canvas3',
+    'numSegments' : 4,
+    'outerRadius' : 110,
+    'textFontSize' : 15,
+    'segments' : [
+      { 'fillStyle' : '#eae56f', 'text' : 'Prize One' },
+      { 'fillStyle' : '#89f26e', 'text' : 'Prize Two' },
+      { 'fillStyle' : '#7de6ef', 'text' : 'Prize Three' },
+      { 'fillStyle' : '#e7706f', 'text' : 'Prize Four' }
+    ]
+  })
+
+
+  //-----------------------------------------------------------
+  // Create wheel dentro del canvas
+  // create wheel object
+  let tp = new Winwheel({
+    'canvasId' : 'trianglePointer',
+    'outerRadius' : 110,
+    'fillStyle' : '#eae56f'
+  });
+
+  let ap = new Winwheel({
+    'canvasId' : 'arrowPointer',
+    'outerRadius' : 110,
+    'fillStyle' : '#89f26e'
+  });
+  // draw triangle on the first canvas by getting the canvas
+  // then using its 2n context to draw lines to make a triangle
+  let tcanvas = document.getElementById('trianglePointer');
+  let tx = tcanvas.getContext('2d');
+
+  // Ensure that have context before calling function to draw
+  if (tx) {
+    drawTriangle();
+  }
+
+  // Get Second canvas context and use code to draw arrow
+  let acanvas = document.getElementById('arrowPointer');
+  let ax = acanvas.getContext('2d');
+
+  if (ax){
+    drawArrow();
+  }
+
+  // Put draw code in a function since would have to call this
+  // each frame of the animation to re-draw the pointer
+
+  function drawTriangle(){
+    tx.strokeStyle = '#000000';   // Set line colour.
+    tx.fillStyle = 'aqua';        // Set fill colour.
+    tx.lineWidth = 2;
+    tx.beginPath();               // Begin path
+    tx.moveTo(175, 20);           // Move to initial position.
+    tx.lineTo(235, 20);           // Draw lines to make the shape.
+    tx.lineTo(205, 80);
+    tx.lineTo(176, 20);
+    tx.stroke();                  // Complete the path by stroking (draw lines).
+    tx.fill();                    // Then fill with colour.
+  }
+
+  function drawArrow(){
+    ax.strokeStyle = '#000000';
+    ax.fillStyle = 'yellow';
+    ax.lineWidth = 2;
+    ax.beginPath();
+    ax.moveTo(195, 10);
+    ax.lineTo(195, 30);
+    ax.lineTo(165, 30);
+    ax.lineTo(205, 70);
+    ax.lineTo(245, 30);
+    ax.lineTo(215, 30);
+    ax.lineTo(215, 10);
+    ax.lineTo(195, 10);
+    ax.stroke();
+    ax.fill();
+  }
+
+  //------------------------------------------------------------------------------------
+
+
+  // Create image in memory
+  let handWheel = new Winwheel({
+    'canvasId' : 'handWheel',
+    'fillStyle' : '#7de6ef',
+    'outerRadius' : 150,
+    'centerY' : 230,
+    'numSegments' : 10,
+    'segments' : [
+      { 'fillStyle' : '#e7706f' }
+    ]
+  });
+
+  //create image in memory
+  let handImage = new Image();
+
+  //set onload of the image to anonymous function to draw on the canvas once the image has loaded
+  handImage.onload = function(){
+    let handCanvas = document.getElementById('handWheel');
+    let ctx = handCanvas.getContext('2d');
+
+    if (ctx){
+      ctx.save();
+      ctx.translate(200, 150);
+      ctx.rotate(handWheel.degToRad(-40));    //Here I just rotate the image a bit
+      ctx.translate(-200, -150);
+      ctx.drawImage(handImage, 255, 100);       //Draw the iimage at the specified x and y
+      ctx.restore();
+    }
+  };
+
+  // Set source of theimage. Once Loaded the onload callback above will be triggerd
+  handImage.src = 'img/pointing_hand.png';
+
+
+
+//------------------------------------------------------------------------------------
+  
+  // Create the second whhel shown above.
+
+  let adjustedWheel = new Winwheel({
+    'canvasId' : 'adjustedWheel',
+    'numSegments' : 6,
+    'textOrientation' : 'vertical',
+    'textFontFamily' : 'Courier',
+    'centerY' : 220,
+    'outerRadius' : 170,
+    'textFontSize' : 14.5,
+    'rotationAngle' : -30,    //Rotate wheel sligthtly anti-clockwhise
+    'segments' : [
+      { 'fillStyle' : 'gold', 'text' : 'SUPER PRIZE' },
+      { 'text' : '2' }, 
+      { 'text' : '3' }, 
+      { 'text' : '4' }, 
+      { 'text' : '5' }, 
+      { 'text' : '6' }
+    ]
+  });
+  
+  //Get canvas context from the whhel object
+  c = adjustedWheel.ctx;
+
+  //Create pointer
+  if (c){
+    c.save();
+    c.lineWidth = 2;
+    c.strokeStyle = 'black';
+    c.fillStyle = 'black';
+    c.beginPath();
+    c.moveTo(180,10);
+    c.lineTo(220,10);
+    c.lineTo(200,42);
+    c.lineTo(180,10);
+    c.stroke();
+    c.fill();
+    c.restore();
+  }
+
+
+// --------------------------------------------
+  
+  // Create the second whhel shown above.
+
+  let adjustedWheel2 = new Winwheel({
+    'canvasId' : 'adjustedWheel2',
+    'numSegments' : 6,
+    'textOrientation' : 'vertical',
+    'textFontFamily' : 'Courier',
+    'centerY' : 220,
+    'outerRadius' : 170,
+    'textFontSize' : 14.5,
+    'rotationAngle' : 0,    //Rotate wheel sligthtly anti-clockwhise
+    'segments' : [
+      { 'fillStyle' : 'gold', 'text' : 'SUPER PRIZE' },
+      { 'text' : '2' }, 
+      { 'text' : '3' }, 
+      { 'text' : '4' }, 
+      { 'text' : '5' }, 
+      { 'text' : '6' }
+    ]
+  });
+  
+  //Get canvas context from the whhel object
+  c = adjustedWheel2.ctx;
+
+  //Create pointer
+  if (c){
+    c.save();
+    c.lineWidth = 2;
+    c.strokeStyle = 'black';
+    c.fillStyle = 'black';
+    c.beginPath();
+    c.moveTo(180,10);
+    c.lineTo(220,10);
+    c.lineTo(200,42);
+    c.lineTo(180,10);
+    c.stroke();
+    c.fill();
+    c.restore();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+<!-- 
+"Core HTML Canvas: Graphics, Animation, and Game Development" by David Geary. 
+ -->
+</body>
+
+
+</html>

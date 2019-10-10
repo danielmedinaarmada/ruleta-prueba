@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="js/Winwheel.min.js"></script>
+</head>
+<body>
+  <div style='border: 1px solid black'>
+    <canvas id='canvas' width="800" height="300"></canvas>
+  </div>
+
+  <script>
+    
+  //Create the wheel
+  let theWheel = new Winwheel({
+    'drawMode': 'image'
+  });
+
+  //Create new image object in memory
+  let loadedImg = new Image();
+
+  //Create callback to execute once the image han finished loading
+  loadedImg.onload = function(){
+    theWheel.wheelImage = loadedImg;
+    theWheel.draw();
+  }
+
+  //set the image source, once complete this will trigger the onLoad callback (above)
+  loadedImg.src = 'img/some_imagen.png'
+
+
+  </script>
+
+
+</body>
+</html>
