@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <script src="js/TweenMax.min.js"></script>
   <script src="js/Winwheel.min.js"></script>
 </head>
 <body>
@@ -53,12 +54,23 @@
     </canvas>
   </div>
 
-<div style='border: 1px solid black; display: inline-block;'>
+  <div style='border: 1px solid black; display: inline-block;'>
     <canvas id='adjustedWheel2' width="400" height="400">
       Canvas no supported, please user another browser
     </canvas>
   </div>
 
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='canvas5' width="400" height="400">
+      Canvas no supported, please user another browser
+    </canvas>
+    <!-- 
+        The call the startAnimation function when you want the wheel to start spinning
+        This might be when the user clicks a "Spin" Button
+     -->
+    <button onclick="theWheel2.startAnimation();">Spin the Wheel</button>
+  </div>
 
 
   <script>
@@ -358,8 +370,25 @@
   }
 
 
+  //----------------------------------------------
 
+  let theWheel2 = new Winwheel({
+    'canvasId' : 'canvas5',
+    'numSegments' : 4,
+    'outerRadius' : 170,
+    'segments' : [
+      { 'fillStyle' : '#eae56f', 'text' : 'Prize One' },
+      { 'fillStyle' : '#89f26e', 'text' : 'Prize Two' },
+      { 'fillStyle' : '#7de6ef', 'text' : 'Prize Three' },
+      { 'fillStyle' : '#e7706f', 'text' : 'Prize Four' },
+    ],
+    'animation' : {                 // Note animation properties passed in constructor parameters.
+      'type' : 'spinToStop',        // Type of the animation
+      'duration': 5,                // How long the animation is to take in seconds
+      'spins': 8                    // The number of complete 360 degree rotations the wheel is to do.
+    }
 
+  })
 
 
 

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src='js/TweenMax.min.js'></script>
+  <script src='js/Winwheel.min.js'></script>
+</head>
+<body>
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='spinStopWheel' width=400 height=400>
+      Canvas no supported, please user another browser
+    </canvas>
+    <button onclick="spinStopWheel.startAnimation();">Girar</button>
+  </div>
+
+  <script>
+    let spinStopWheel = new Winwheel({
+      'canvasId' : 'spinStopWheel',
+      'numSegments' : 4,
+      'segments' : [
+        { 'fillStyle' : '#eae56f', 'text' : 'Segment 1' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Segment 2' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Segment 3' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Segment 4' }
+      ],
+      'animation': {
+        //Must be specified
+        'type' : 'spinToStop',
+        'duration' : 5,
+        //The are the defaults, all optional...
+        'spins' : 5,
+        'easing' : 'Power4.easeOut',
+        'stopAngle' : null,
+        'direction' : 'clockwise',
+        'repeat' : 0,
+        'yoyo' :  false
+
+        /*
+        <a href="javascript:void(0);" onclick="spinWheel.stopAnimation(); spinWheel.rotationAngle=0; spinWheel.draw(); bigButton.disabled=false;">Reset</a>
+        */
+
+
+        /*
+        Winwheel.js Tipos de animación y propiedades
+
+        Hay una serie de propiedades que controlan la animación, muchas de las cuales normalmente no necesita preocuparse porque para cada tipo de animación hay valores predeterminados razonables y usted solo especificaría uno o dos de estos, pero detallaré todos aquí .
+
+        Actualmente hay 4 tipos de animación integrados en la Biblioteca Winwheel. Para usarlos, configure la propiedad type para especificar cuál desea ...
+
+            spinToStop: la rueda gira con el tiempo hasta detenerse, normalmente comienza rápido y luego disminuye la velocidad antes de detenerse
+            
+            spinOngoing: la rueda sigue girando para siempre a menos que la animación se detenga o detenga específicamente
+            
+            spinAndBack: la rueda gira en una dirección y luego regresa en la otra dirección, posiblemente repitiendo
+            
+            personalizado: esta opción por sí sola no hace nada; debe establecer al menos un par de parámetros de animación (propertyName, 
+            propertyValue) además de la duración
+
+
+        Además de estos "Tipos" principales de animación, hay una serie de parámetros de animación que debe o puede establecer que afectarán el funcionamiento de la animación, estos son ...
+
+            duration: esto siempre debe especificarse en segundos. Cuánto tiempo quieres que dure la animación
+            
+            giros: la cantidad de veces que la rueda debe girar 360 grados (es decir, rotaciones completas)
+            
+            repetir: veces que la animación se repite, establezca en -1 para que la animación se repita para siempre
+            
+            facilitación: la función de aceleración que se utiliza para ralentizar o acelerar la animación con el tiempo o mantenerla constante
+            
+        Consulte http://greensock.com/ease-visualizer para ver las funciones de aceleración disponibles.
+            
+            dirección: en sentido horario o antihorario (solo se usa para animaciones giratorias)
+            
+            stopAngle: el ángulo exacto alrededor de la rueda para detenerse. Si es nulo para el tipo spinToStop, se elegirá un ángulo de detención 
+            aleatorio.
+            
+            yoyo: si se establece en verdadero, la animación volverá al inicio después de completar
+            
+            propertyName: el nombre de la propiedad de la rueda para animar. Para todos los tipos de animación de giro, esto se establece en rotacionAngulo, para animaciones personalizadas puede establecerlo en cualquier propiedad numérica de la rueda, por ejemplo, el externoRadio, centroX, centroY, para animar esos aspectos de la rueda.
+            propertyValue: para animaciones personalizadas. El valor que desea para la propiedad al final de la animación.
+        */
+      }
+
+    });
+  
+  </script>
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='spinOngoingWheel' width=400 height=400>
+      Canvas no supported, please user another browser
+    </canvas>
+    <button onclick='spinOngoingWheel.startAnimation();'>Girar</button>
+  </div>
+
+  <script>
+    let spinOngoingWheel = new Winwheel({
+      'canvasId' : 'spinOngoingWheel',
+      'numSegments' : 4,
+      'segments' : [
+        { 'fillStyle' : '#eae56f', 'text' : 'Segment 1' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Segment 2' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Segment 3' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Segment 4' }
+      ],
+      'animation' : {
+        // Must be specified...
+        'type'     : 'spinOngoing',
+        'duration' : 5,
+        //These are the defaults, all optional..
+        'spins'    : 5,
+        'easing'   : 'Linear.easeNone',
+        'direction': 'clockwise',
+        'repeat'   : -1,
+        'yoyo'     :  false
+      }
+    });
+
+  </script>
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='spinAndBack' width=400 height=400>
+      Canvas no supported, please user another browser
+    </canvas>
+    <button onclick='spinAndBackWheel.startAnimation();'>Girar</button>
+  </div> 
+
+  <script>
+    
+    let spinAndBackWheel = new Winwheel({
+      'canvasId' : 'spinAndBack',
+      'numSegments' : 4,
+      'segments' : [
+        { 'fillStyle' : '#eae56f', 'text' : 'Segment 1' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Segment 2' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Segment 3' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Segment 4' }
+      ],
+      'animation' :
+      {
+        // Must be specified
+        'type' : 'spinAndBack',
+        'duration' : 5,
+        //These are the defaults, al optional...
+        'spins' : 5,
+        'easing' : 'Power2.easeInOut',
+        'stopAngle' : 0,
+        'direction' : 'clockwise',
+        'repeat' : 1,
+        'yoyo' : true
+      }
+    })
+
+  </script>
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='radiusAnimWheel' width=400 height=400>
+      Canvas no supported, please user another browser
+    </canvas>
+    <button onclick='radiusAnimWheel.startAnimation();'>Girar</button>
+  </div> 
+
+  <script>
+    let radiusAnimWheel = new Winwheel({
+      'canvasId' : 'radiusAnimWheel',
+      'numSegments': 4,
+      'segments' : [
+        { 'fillStyle': '#eae56f' },
+        { 'fillStyle': '#89f26e' },
+        { 'fillStyle': '#7de6ef' },
+        { 'fillStyle': '#e7706f' }
+      ],
+      'animation': {
+        //Must be specified
+        'type' : 'custom',
+        'duration' : 3,
+        //For custom propertyName and protertyValue
+        //must be specified. Other as needed
+        'propertyName' : 'innerRadius',
+        'propertyValue' : 100,
+        'easing' : 'Power2.easeInOut',
+        'repeat' : -1,
+        'yoyo' : true
+      }
+    })
+
+  </script>
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='xyAnimWheel' width=400 height=600>
+      Canvas no supported, please user another browser
+    </canvas>
+    <button onclick='xyAnimWheel.startAnimation();'>Girar</button>
+  </div> 
+
+  <script>
+    let xyAnimStep = 1;
+
+    let xyAnimWheel = new Winwheel({
+      'canvasId' : 'xyAnimWheel',
+      'numSegments' : 4,
+      'outerRadius' : 30,
+      'centerX' : 55,
+      'centerY' : 55,
+      'segments' : [
+        { 'fillStyle' : '#eae56f' },
+        { 'fillStyle' : '#89f26e' },
+        { 'fillStyle' : '#7de6ef' },
+        { 'fillStyle' : '#e7706f' }
+      ],
+      'animation' : {
+        'type' : 'custom',
+        'duration' : 2,
+        'propertyName' : 'centerX',
+        'propertyValue' : 245,
+        'easing' : 'Power3.easeInOut',
+        'callbackFinished' : 'nextAnimationStep()'
+      }
+    })
+
+    function nextAnimationStep(){
+      xyAnimStep ++;
+
+      if (xyAnimStep > 4){
+        xyAnimStep = 1;
+      }
+
+      //set up the new animation as needed
+      if( xyAnimStep === 1 ){
+        xyAnimWheel.animation.propertyName = 'centerX';
+        xyAnimWheel.animation.propertyValue = 245;
+        xyAnimWheel.animation.easing = 'Power3.easeInOut';
+      } else if (xyAnimStep === 2) {
+        xyAnimWheel.animation.propertyName = 'centerY';
+        xyAnimWheel.animation.propertyValue = 545;
+        xyAnimWheel.animation.easing = 'Bounce.easeOut';
+      } else if (xyAnimStep === 3) {
+        xyAnimWheel.animation.propertyName = 'centerX';
+        xyAnimWheel.animation.propertyValue = 55;
+        xyAnimWheel.animation.easing = 'Power2.easeIn';
+      } else if (xyAnimStep === 4) {
+        xyAnimWheel.animation.propertyName = 'centerY';
+        xyAnimWheel.animation.propertyValue = 55;
+        xyAnimWheel.animation.easing = 'Bounce.easeIn';
+      }
+      // Kich off the animation
+      xyAnimWheel.startAnimation();
+    }
+
+  </script>
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='xyNoClearAnimWheel' width=400 height=600>
+      Canvas no supported, please user another browser
+    </canvas>
+    <button onclick='xyNoClearAnimWheel.startAnimation();'>Girar</button>
+  </div> 
+
+  <script>
+    let xyNoClearAnimStep = 1;
+
+    let xyNoClearAnimWheel = new Winwheel({
+      'canvasId' : 'xyNoClearAnimWheel',
+      'numSegments' : 4,
+      'outerRadius' : 30,
+      'centerX' : 55,
+      'centerY': 55,
+      'segments': [
+        { 'fillStyle' : '#eae56f' },
+        { 'fillStyle' : '#89f26e' },
+        { 'fillStyle' : '#7de6ef' },
+        { 'fillStyle' : '#e77c6f' }
+      ],
+      'animation' : 
+      {
+        'type': 'custom',
+        'duration': 2,
+        'propertyName': 'centerX',
+        'propertyValue' : 245,
+        'easing' : 'Power3.easeInOut',
+        'callbackFinished' : 'nextNoClearAnimationStep()',
+        'clearTheCanvas': false
+      }
+    });
+
+    //Changes the animation once the current one has finished
+    function nextNoClearAnimationStep(){
+      xyNoClearAnimStep ++;
+      if ( xyNoClearAnimStep > 4 ){
+        xyNoClearAnimStep = 1;
+      }
+
+      if (xyNoClearAnimStep === 1 ){
+        xyNoClearAnimWheel.animation.propertyName = 'centerX';
+        xyNoClearAnimWheel.animation.propertyValue = 245;
+        xyNoClearAnimWheel.animation.easing = 'Power3.easeInOut';
+      } else if (xyNoClearAnimStep === 2 ){
+        xyNoClearAnimWheel.animation.propertyName = 'centerY';
+        xyNoClearAnimWheel.animation.propertyValue = 545;
+        xyNoClearAnimWheel.animation.easing = 'Bounce.easeOut';
+      } else if (xyNoClearAnimStep === 3 ) {
+        xyNoClearAnimWheel.animation.propertyName = 'centerX';
+        xyNoClearAnimWheel.animation.propertyValue = 55;
+        xyNoClearAnimWheel.animation.easing = 'Power2.easeIn';
+      } else if (xyNoClearAnimStep === 4) {
+        xyNoClearAnimWheel.animation.propertyName = 'centerY';
+        xyNoClearAnimWheel.animation.propertyValue = 55;
+        xyNoClearAnimWheel.animation.easing = 'Bounce.easeIn';
+      }
+      //Kich off the animation
+      xyNoClearAnimWheel.startAnimation();
+    }
+  </script>
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='tweenAnimCanvas' width=400 height=600>
+      Canvas no supported, please user another browser
+    </canvas>
+    <button onclick='playStopTweenAnim();'>Play / Pause</button>
+  </div> 
+
+  <script>
+    let tweenAnimState = 0;
+    let tween = null;
+
+    let tweenAnimWheel = new Winwheel({
+      'canvasId' : 'tweenAnimCanvas',
+      'numSegments' : 4,
+      'outerRadius' : 30,
+      'centerX' : 55,
+      'centerY' : 55,
+      'segments' : [
+        { 'fillStyle' : '#eae56f'},
+        { 'fillStyle' : '#89f26e'},
+        { 'fillStyle' : '#7de6ef'},
+        { 'fillStyle' : '#e7706f'}
+      ]
+      //note no animation defined as part of the wheel this times.
+    });
+
+    //Create function called by the Play/Pause button
+    function playStopTweenAnim(){
+      // If animation does not exist yet
+      if (tweenAnimState === 0){
+        // Specify the animation using TweenMax
+        tween = TweenMax.to(tweenAnimWheel, 3, {
+          centerX:245,         // Multiple properities
+          centerY:545,         // can be animated at
+          rotationAngle:1800,  // the same time
+          repeat:-1,
+          yoyo:true
+        });
+
+        // In order for changes to the wheel to appear we must
+        // get the draw() function on the wheel called each frame.
+        TweenMax.ticker.addEventListener('tick', myAnimationLoop);
+
+        tweenAnimState = 1;
+      }else if (tweenAnimState === 1) {
+        // If playinf then pause
+        tween.pause();
+        tweenAnimState = 2;
+      } else {
+        //if paused then resume
+        tween.resume();
+        tweenAnimState = 1;
+      }
+    }
+
+
+    function myAnimationLoop(){
+      // Render changes to the wheel on screen
+      tweenAnimWheel.draw();
+    }
+
+  </script>
+
+  
+</body>
+</html>
