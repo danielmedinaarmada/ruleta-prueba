@@ -430,9 +430,87 @@
       'segments' : [
         // Define segments. The more info property is not a standart parameter of  segments
         // but because JavaScript is loosely typed is I want moreInfo property I can add it
+        { 
+          'fillStyle' : '#eae56f', 
+          'text' : 'Data 1',
+          'size': winWheelPercentToDegrees(45),
+          'moreInfo' : '<p>Data 1 is the biggest slice of the pie at 45% for this year!</p>'
+        },{ 
+          'fillStyle' : '#eae56f', 
+          'text' : 'Data 2',
+          'size': winWheelPercentToDegrees(20),
+          'moreInfo' : '<p>Data 2 is selling well making up 20% of our sales.</p>'
+        },{ 
+          'fillStyle' : '#eae56f', 
+          'text' : 'Data 3',
+          'size': winWheelPercentToDegrees(5),
+          'moreInfo' : '<p>Data 3 only making up 5% of our sales.</p>'
+        },{ 
+          'fillStyle' : '#eae56f', 
+          'text' : 'Data 4',
+          'size': winWheelPercentToDegrees(30),
+          'moreInfo' : '<p>Data 4 was a strong performer of the last year at 30% of sales.</p>'
+        }
       ]
     });
   
+    // Call function to draw legend boxes passing x and y co-ordinates of where to start the legend boxes.
+    drawLegend(420,90);
+
+    function drawLegend(x,y){
+      // Get context to same canvas used by wheel
+      let ctx = graph.ctx;
+
+      // Set some HTML 5 canvas drawing options
+      ctx.lineWidth = 1;
+      ctx.stokeStyle = 'black';
+      ctx.font = '14px verdana';
+
+      // Loop though segment in the wheel and create boxes
+      for (idx = 1; idx <= graph.numSegments; idx++ ){
+        // These are raw canvas function you may want to learn about.
+        ctx.beginPath();
+        ctx.fillStyle = graph.segments[idx].fillStyle;
+        ctx.rect(x,y,40,40);
+        ctx.stroke();
+        ctx.fill();
+
+        // Do the text centred to the right
+        ctx.fillStyle = 'black';
+        ctx.fillText(graph.segments[id].text, x + 50, y + 25);
+
+        // Move down after each  one with gap in between
+        y += 55;
+
+        // Reset the text fillStyle here so only 1 is red;
+        grap.numSegments[idx].textFillStyle = 'black';
+      }
+    }
+
+    // Get canvas and span objects
+    let canvas = document.getElementById('graph');
+    let moreInfo = docuemnt.getElementById('moreInfo');
+
+    //Specify click handler for canvas
+    canas.onclick = function(e){
+      // Call the getSegmentsAt function passing the mouse x and y from the event
+      let clickedSegment = graph.getSegmentAt(e.clientX, e.clientY);
+
+      // A pointer to the segment clicked is returned if the user clicked inside the wheel
+      if (clickedSegment){
+        
+        //set more info innerHTML
+        moreInfo.innerText = '<h3>' + clickedSegment.text + '</h3>' + clickedSegment.moreInfo;
+        //Change clicked segment text to red
+        clickedSegment.textFillStyle = 'red';
+        grap.draw();
+
+        // Need to re-draw legend and wiped when wheel is re-draw
+        drawLegend(420, 90);
+      }
+
+    }
+
 
   </script>
 
