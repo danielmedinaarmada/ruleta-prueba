@@ -415,16 +415,25 @@
 
   </script>
 
-
   <div style='border:1px solid black; display: inline-block;'>
-    <canvas id='' width='400' height='400'>
+    <canvas id='pieGraph' width='400' height='400'>
       Canvas no suported, please use another browser.
     </canvas>
-    <button onclick="">Girar</button>
+    <p>More Info: <span id='moreInfo'></span></p>
   </div>
   
   <script>
-    
+    let graph = new Winwheel({
+      'numSegments' : 4,
+      'outerRadius' : 170,
+      'centerX' : 190,         //By default wheel goes in center of canvas, move left side
+      'segments' : [
+        // Define segments. The more info property is not a standart parameter of  segments
+        // but because JavaScript is loosely typed is I want moreInfo property I can add it
+      ]
+    });
+  
+
   </script>
 
 
