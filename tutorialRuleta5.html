@@ -293,10 +293,10 @@
     // Function called onclick of spin button
     function calculatePriceOnServer(){
       // Make get request to the server-side script
-      header('Access-Control-Allow-Origin: *');
-      header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-      header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
       xhr.open('GET', 'http://dougtesting.net/elements/scripts/calculate_prize.php', true);
+      xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+      xhr.setRequestHeader('Content-type', 'application/ecmascript');
+      xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
       xhr.send('');
     }
 
@@ -340,9 +340,92 @@
       ctx.fill();                 //Then fill
     }
 
+  </script>
+
+
+  <div style='border:1px solid black; display: inline-block;'>
+    <canvas id='segmentClicked' width='400' height='400'>
+      Canvas no suported, please use another browser.
+    </canvas>
+    <p>You clicked: <span id='clickedWhat'></span></p>
+  </div>
+
+  <script>
+    let segmentClickedWheel = new Winwheel({
+      'canvasId': 'segmentClicked',
+      'numSegments' : 8,
+      'outerRadius' : 170,
+      'innerRadius' : 50,
+      'textFontSize' : 14,
+      'textMargin' : 0,
+      'segments' : [
+        { 'fillStyle' : '#eae56f', 'text' : 'Segment 1' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Segment 2' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Segment 3' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Segment 4' },
+        { 'fillStyle' : '#eae56f', 'text' : 'Segment 5' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Segment 6' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Segment 7' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Segment 8' }
+      ],
+    });    
+
+    // Get canvas and span objects.
+    let canvas = document.getElementById('segmentClicked');
+    let clickedWhat = document.getElementById('clickedWhat');
+
+    // Specify click handler for canvas.
+    canvas.onclick = function(e){
+      // Call function to reset the segment colours.
+      resetSegmentColours();
+
+      // Call the getSegmentAt function passing the mouse x and y from the event
+      let clickedSegment = segmentClickedWheel.getSegmentAt(e.clientX, e.clientY);
+      let clickedSegmentNumber = segmentClickedWheel.getSegmentNumberAt(e.clientX, e.clientY);
+      console.log (`clickedSegment: ${clickedSegment.fillStyle} clickedSegmentNumber: ${clickedSegmentNumber}`);
+
+      // A pointer to the segment clicked is retuned if the user clicked inside the wheel
+      if (clickedSegment){
+        // Change background colour of the segment and update the wheel
+        clickedSegment.fillStyle = 'yellow';
+        segmentClickedWheel.draw();
+        // update span to say what was clicked
+        clickedWhat.innerText = clickedSegment.text;
+      }
+    }
+
+    // Reset the segment colours
+    function resetSegmentColours(){
+      // Reset the colours
+      segmentClickedWheel.segments[1].fillStyle = '#eae56f';
+      segmentClickedWheel.segments[2].fillStyle = '#89f26e';
+      segmentClickedWheel.segments[3].fillStyle = '#7de6ef';
+      segmentClickedWheel.segments[4].fillStyle = '#e7706f';
+      segmentClickedWheel.segments[5].fillStyle = '#eae56f';
+      segmentClickedWheel.segments[6].fillStyle = '#89f26e';
+      segmentClickedWheel.segments[7].fillStyle = '#7de6ef';
+      segmentClickedWheel.segments[8].fillStyle = '#e7706f';
+
+      // Render change
+      segmentClickedWheel.draw();
+
+      // Also blank clicked what text
+      clickedWhat.innerText = '';
+    }
 
   </script>
 
+
+  <div style='border:1px solid black; display: inline-block;'>
+    <canvas id='' width='400' height='400'>
+      Canvas no suported, please use another browser.
+    </canvas>
+    <button onclick="">Girar</button>
+  </div>
+  
+  <script>
+    
+  </script>
 
 
 </body>
