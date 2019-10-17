@@ -636,5 +636,139 @@
   </script>
 
 
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='tickSegments' width='300' height='300'>
+      Canvas no suported, please use another browser;
+    </canvas>
+    <button onclick="tick.startAnimation();">Girar</button>
+  </div>
+
+  <script>
+    let tick = new Winwheel({
+      'canvasId' : 'tickSegments',
+      'numSegments' : 4,
+      'segments' : [
+        { 'fillStyle' : '#eae56f', 'text' : 'Segments 1' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Segments 2' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Segments 3' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Segments 4' }
+      ],
+      'animation' : {
+        'type' : 'spinToStop',
+        'duration': 5,
+        'spins' : 5,
+        'callbackSound' : playSound,       //Specify function to call when sound is to be triggered
+      },
+      'pins' : true
+    });
+
+    let audio = new Audio("mp3/tick.mp3")
+
+    function playSound(){
+      //Stop and rewind the sound (stops it if already playing)
+      audio.pause();
+      audio.currentTime = 0;
+
+      //play then sound
+      audio.play();
+    }
+
+  </script>
+
+  
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='tickPins' width='300' height='300'>
+      Canvas no suported, please use another browser;
+    </canvas>
+    <button onclick="tickPins.startAnimation();">Girar</button>
+  </div>
+
+  <script>
+    let tickPins = new Winwheel({
+      'canvasId': 'tickPins',
+      'numSegments' : 8,
+      'segments' : [
+        { 'fillStyle':'#eae56f', 'text' : 'Segment 1'},
+        { 'fillStyle':'#89f26e', 'text' : 'Segment 2'},
+        { 'fillStyle':'#7de6ef', 'text' : 'Segment 3'},
+        { 'fillStyle':'#e7706f', 'text' : 'Segment 4'},
+        { 'fillStyle':'#eae56f', 'text' : 'Segment 5'},
+        { 'fillStyle':'#89f26e', 'text' : 'Segment 6'},
+        { 'fillStyle':'#7de6ef', 'text' : 'Segment 7'},
+        { 'fillStyle':'#e7706f', 'text' : 'Segment 8'}
+      ],
+      'animation':{
+        'type' : 'spinToStop',
+        'duration' : 20,
+        'spins' : 10,
+        'callbackSound' : playSound,    //Specify function to call when sound is to be triggerd
+        'soundTriggers' : 'pin'         //Pins triggersthw sounds for this animation
+      },
+      'pins' : {        
+        'number' : 8       //Display pins, and if desired specify the number
+      }
+    });
+
+    let audio2 = new Audio("mp3/tick.mp3")  //Create audio object and load desired file.
+
+    function playSound(){
+      //Stop and rewind the sound  (stops it if already playing)
+      audio2.pause();
+      audio2.currentTime = 0;
+
+      //play the sound
+      audio2.play();
+    }
+
+  </script>
+
+
+  
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='musicWheel' width='300' height='300'>
+      Canvas no suported, please use another browser;
+    </canvas>
+    <button onclick="StartSpin();">Girar</button>
+  </div>
+
+  <script>
+    let music = new Winwheel({
+      'canvasId' : 'musicWheel',
+      'numSegments' : 4,
+      'segments' : [
+        {  'fillStyle' : '#eae56f', 'text':'Segment 1' },
+        {  'fillStyle' : '#89f26e', 'text':'Segment 2' },
+        {  'fillStyle' : '#7de6ef', 'text':'Segment 3' },
+        {  'fillStyle' : '#e7706f', 'text':'Segment 4' }
+      ], 
+      'animation': {
+        'type' : 'spinToStop',
+        'duration': 6.4,
+        'spins': 6,
+        'callbackFinished': stopSound
+      }
+    });
+
+    let audio3 = new Audio("mp3/kids-music.mp3"); // Create audio object and load desired file
+    // https://www.partnersinrhyme.com/
+    // http://soundbible.com/
+    //Function called by the Spin button onClick
+    function StartSpin(){
+      //Play the sound and begin the animation of the wheel
+      audio3.play();
+      music.startAnimation();
+    }
+
+    // Called when the animation  has finished
+    function stopSound(){
+      //Stop and rewind the sound  (stop it if still playing)
+      audio3.pause();
+      audio3.currentTime = 0;
+    }
+  </script>
+
+
 </body>
 </html>
