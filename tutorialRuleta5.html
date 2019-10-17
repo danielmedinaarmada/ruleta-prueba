@@ -294,9 +294,6 @@
     function calculatePriceOnServer(){
       // Make get request to the server-side script
       xhr.open('GET', 'http://dougtesting.net/elements/scripts/calculate_prize.php', true);
-      xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-      xhr.setRequestHeader('Content-type', 'application/ecmascript');
-      xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
       xhr.send('');
     }
 
@@ -509,10 +506,82 @@
         // Need to re-draw legend and wiped when wheel is re-draw
         drawLegend(420, 90);
       }
-
     }
 
   </script>
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='segmentsIndividualImage' width='600' height='600'>
+      Canvas no suported, please use another browser;
+    </canvas>
+    <button onclick="indivualImage.startAnimation();">Girar</button>
+  </div>
+    
+  <script>
+    let indivualImage = new Winwheel({
+      'canvasId'        : 'segmentsIndividualImage',
+      'numSegments'     : 8,        // Specify number of segments
+      'outerRadius'     : 160,      // Set outer radius so wheel fits inside the back ground
+      'drawText'        : true,     // Code draw text can be used with segment images
+      'textFontSize'    : 14,
+      'textOrientation' : 'curved',
+      'textAlignment'   : 'inner',
+      'textMargin'      : '180',
+      'textFontFamily'  : 'monospace',
+      'textStrokeStyle' : 'black',
+      'textLineWidth'   : 3,
+      'textFileStyle'   : 'white',
+      'drawMode'        : 'segmentImage',   //Must be  segmentImage to draw wheel using one image per segment
+      'segments'        : [                 //Define segments including image with text
+        { 'image' : 'img/jane.png', 'text' : 'Jane'},
+        { 'image' : 'img/tom.png', 'text' : 'Tom'},
+        { 'image' : 'img/mary.png', 'text' : 'Mary'},
+        { 'image' : 'img/alex.png', 'text' : 'Alex' },
+        { 'image' : 'img/sarah.png', 'text' : 'Sarah' },
+        { 'image' : 'img/bruce.png', 'text' : 'Bruce'},
+        { 'image' : 'img/rose.png', 'text' : 'Rose' },
+        { 'image' : 'img/steve.png', 'text' : 'Steve' }
+      ],
+      'animation': {
+        'type' : 'spingToStop',
+        'duration': 5,
+        'spins': 6
+      }
+    });
+
+
+  </script>
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='wheelIndividualImage' width='600' height='600'>
+      Canvas no suported, please use another browser;
+    </canvas>
+    <button onclick="wheelIndividualImage.startAnimation();">Girar</button>
+  </div>
+
+  <script>
+    let wheelIndividualImage = new Winwheel({
+      'canvasId' : 'wheelIndividualImage',
+      'numSegments' : 8,
+      'outerRadius' : 160,
+      'drawMode'    :   'segmentImage',
+      'imageDirection' : 'S',             // Specify segments are South orientated globally for whole whell
+      'segments'  : [
+        { 'image' : 'img/jane.png', 'text' : 'Jane'},
+        { 'image' : 'img/tom.png', 'text' : 'Tom'},
+        { 'image' : 'img/mary.png', 'text' : 'Mary', 'ImageDirection' : 'E'},
+        { 'image' : 'img/alex.png', 'text' : 'Alex' },
+        { 'image' : 'img/sarah.png', 'text' : 'Sarah' },
+        { 'image' : 'img/bruce.png', 'text' : 'Bruce'},
+        { 'image' : 'img/rose.png', 'text' : 'Rose' },
+        { 'image' : 'img/steve.png', 'text' : 'Steve' }
+      ]
+    });
+
+  </script>
+
+
 
 
 </body>
