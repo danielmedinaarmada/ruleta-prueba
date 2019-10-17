@@ -770,5 +770,58 @@
   </script>
 
 
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='resposiveWheel' width='880' height='400'
+      data-responsiveMinWidth="180"
+      data-resposiveScaleHeight="true"
+      data-resposiveMargin="50"
+      onClick="startSpin2();"
+    >
+      Canvas no suported, please use another browser;
+    </canvas>
+  </div>
+
+  <script>
+    let resposiveWheel = new Winwheel({
+      'canvasId' : 'resposiveWheel',
+      'numSegments' : 8,
+      'textFontSize': 28,
+      'resposive' : true,   // This wheel is responsive!
+      'segments' : [
+        { 'fillStyle' : '#eae56f', 'text' : 'Prize 1' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Prize 2' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Prize 3' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Prize 4' },
+        { 'fillStyle' : '#eae56f', 'text' : 'Prize 5' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Prize 6' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Prize 7' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Prize 8' }
+      ],
+      'pins' : {
+        'outerRadius' : 6,
+        'resposive' : true   // This must be set to true if ping size is to be responsive
+      },
+      'animation': {
+        'type' : 'spinToStop',
+        'duration' : 5,
+        'spins' : 8
+      }
+    });
+
+    // Called by the onClick of the canvas, starts the spinning
+    function startSpin2(){
+      //Stop the current animation
+      resposiveWheel.stopAnimation(false);
+      // Reset the rotation angle to less than or equal to 360 so spinning again work as expected.
+      // Setiing to modulus (%) 360 keeps to current position
+      resposiveWheel.rotationAngle = resposiveWheel.rotationAngle % 360;
+      //Start Animation
+      resposiveWheel.startAnimation();
+
+    }
+
+
+  </script>
+
 </body>
 </html>
