@@ -416,7 +416,7 @@
   </script>
 
   <div style='border:1px solid black; display: inline-block;'>
-    <canvas id='pieGraph' width='400' height='400'>
+    <canvas id='pieGraph' width='600' height='400'>
       Canvas no suported, please use another browser.
     </canvas>
     <p>More Info: <span id='moreInfo'></span></p>
@@ -424,40 +424,41 @@
   
   <script>
     let graph = new Winwheel({
-      'numSegments' : 4,
-      'outerRadius' : 170,
-      'centerX' : 190,         //By default wheel goes in center of canvas, move left side
-      'segments' : [
+      'canvasId'     : 'pieGraph',
+      'numSegments'  : 4,
+      'outerRadius'  : 170,
+      'centerX'      : 190,         //By default wheel goes in center of canvas, move left side
+      'segments'     : [
         // Define segments. The more info property is not a standart parameter of  segments
         // but because JavaScript is loosely typed is I want moreInfo property I can add it
         { 
           'fillStyle' : '#eae56f', 
-          'text' : 'Data 1',
-          'size': winWheelPercentToDegrees(45),
-          'moreInfo' : '<p>Data 1 is the biggest slice of the pie at 45% for this year!</p>'
+          'text'      : 'Data 1',
+          'size'      : winwheelPercentToDegrees(45),
+          'moreInfo'  : '<p>Data 1 is the biggest slice of the pie at 45% for this year!</p>'
         },{ 
-          'fillStyle' : '#eae56f', 
-          'text' : 'Data 2',
-          'size': winWheelPercentToDegrees(20),
-          'moreInfo' : '<p>Data 2 is selling well making up 20% of our sales.</p>'
+          'fillStyle' : '#89f26e', 
+          'text'      : 'Data 2',
+          'size'      : winwheelPercentToDegrees(20),
+          'moreInfo'  : '<p>Data 2 is selling well making up 20% of our sales.</p>'
         },{ 
-          'fillStyle' : '#eae56f', 
-          'text' : 'Data 3',
-          'size': winWheelPercentToDegrees(5),
-          'moreInfo' : '<p>Data 3 only making up 5% of our sales.</p>'
+          'fillStyle' : '#7de6ef', 
+          'text'      : 'Data 3',
+          'size'      : winwheelPercentToDegrees(5),
+          'moreInfo'  : '<p>Data 3 only making up 5% of our sales.</p>'
         },{ 
-          'fillStyle' : '#eae56f', 
-          'text' : 'Data 4',
-          'size': winWheelPercentToDegrees(30),
-          'moreInfo' : '<p>Data 4 was a strong performer of the last year at 30% of sales.</p>'
+          'fillStyle'  : '#e7706f', 
+          'text'       : 'Data 4',
+          'size'       : winwheelPercentToDegrees(30),
+          'moreInfo'   : '<p>Data 4 was a strong performer of the last year at 30% of sales.</p>'
         }
       ]
     });
   
     // Call function to draw legend boxes passing x and y co-ordinates of where to start the legend boxes.
-    drawLegend(420,90);
+    drawLegend(420, 90);
 
-    function drawLegend(x,y){
+    function drawLegend(x, y){
       // Get context to same canvas used by wheel
       let ctx = graph.ctx;
 
@@ -477,22 +478,22 @@
 
         // Do the text centred to the right
         ctx.fillStyle = 'black';
-        ctx.fillText(graph.segments[id].text, x + 50, y + 25);
+        ctx.fillText(graph.segments[idx].text, x + 50, y + 25);
 
         // Move down after each  one with gap in between
         y += 55;
 
         // Reset the text fillStyle here so only 1 is red;
-        grap.numSegments[idx].textFillStyle = 'black';
+        graph.segments[idx].textFillStyle = 'black';
       }
     }
 
     // Get canvas and span objects
-    let canvas = document.getElementById('graph');
-    let moreInfo = docuemnt.getElementById('moreInfo');
+    let canvas1 = document.getElementById('pieGraph');
+    let moreInfo = document.getElementById('moreInfo');
 
     //Specify click handler for canvas
-    canas.onclick = function(e){
+    canvas1.onclick = function(e){
       // Call the getSegmentsAt function passing the mouse x and y from the event
       let clickedSegment = graph.getSegmentAt(e.clientX, e.clientY);
 
@@ -500,17 +501,16 @@
       if (clickedSegment){
         
         //set more info innerHTML
-        moreInfo.innerText = '<h3>' + clickedSegment.text + '</h3>' + clickedSegment.moreInfo;
+        moreInfo.innerHTML = '<h3>' + clickedSegment.text + '</h3>' + clickedSegment.moreInfo;
         //Change clicked segment text to red
         clickedSegment.textFillStyle = 'red';
-        grap.draw();
+        graph.draw();
 
         // Need to re-draw legend and wiped when wheel is re-draw
         drawLegend(420, 90);
       }
 
     }
-
 
   </script>
 
