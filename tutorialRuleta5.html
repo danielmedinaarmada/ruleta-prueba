@@ -582,6 +582,58 @@
   </script>
 
 
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='displayPins' width='300' height='300'>
+      Canvas no suported, please use another browser;
+    </canvas>
+    <button onclick="wheelDisplayPins.startAnimation();">Girar</button>
+  </div>
+
+  <script>
+    let wheelDisplayPins = new Winwheel({
+      'canvasId'    : 'displayPins',
+      'numSegments' : 4,
+      'segments'    : [
+        { 'fillStyle' : '#eae56f', 'text' : 'Segments 1' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Segments 2' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Segments 3' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Segments 4' }
+      ],
+      'pins'  : true    // If you happy with the default parameters you
+    });                 // can just specific true to get the ppins to display
+
+  </script>
+
+
+
+
+  <div style='border: 1px solid black; display: inline-block;'>
+    <canvas id='displayPinsParams' width='300' height='300'>
+      Canvas no suported, please use another browser;
+    </canvas>
+    <button onclick="wheelDisplayPinsParams.startAnimation();">Girar</button>
+  </div>
+
+  <script>
+    let displayPinsParams = new Winwheel({
+      'canvasId' : 'displayPinsParams',
+      'numSegments' : 4,
+      'segments' : [
+        { 'fillStyle' : '#eae56f', 'text' : 'Segments 1' },
+        { 'fillStyle' : '#89f26e', 'text' : 'Segments 2' },
+        { 'fillStyle' : '#7de6ef', 'text' : 'Segments 3' },
+        { 'fillStyle' : '#e7706f', 'text' : 'Segments 4' }
+      ],
+      'pins' : {
+        'number'      : 18,
+        'outerRadius' : 5,
+        'margin'      : 10,
+        'fillStyle'   : '#7734c3',
+        'strokeStyle' : '#ffffff'
+      }
+    });
+
+  </script>
 
 
 </body>
